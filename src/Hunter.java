@@ -79,6 +79,7 @@ public class Hunter {
         return true;
     }
 
+
     /**
      * Removes an item from the kit by setting the index of the item to null.
      *
