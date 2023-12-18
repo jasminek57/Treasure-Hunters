@@ -16,10 +16,15 @@ public class Hunter {
      * @param hunterName The hunter's name.
      * @param startingGold The gold the hunter starts with.
      */
-    public Hunter(String hunterName, int startingGold) {
+    public Hunter(String hunterName, int startingGold, Boolean mode) {
         this.hunterName = hunterName;
-        kit = new String[5]; // only 5 possible items can be stored in kit
+        if (mode){
+            kit = new String[] {"water", "rope", "machete", "horse", "boat"};
+        } else {
+            kit = new String[5]; // only 5 possible items can be stored in kit
+        }
         gold = startingGold;
+
     }
 
     //Accessors
@@ -73,6 +78,7 @@ public class Hunter {
         removeItemFromKit(item);
         return true;
     }
+
 
     /**
      * Removes an item from the kit by setting the index of the item to null.
