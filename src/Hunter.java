@@ -9,6 +9,7 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
+    private boolean gameOver;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -24,6 +25,7 @@ public class Hunter {
             kit = new String[5]; // only 5 possible items can be stored in kit
         }
         gold = startingGold;
+        gameOver = false;
 
     }
 
@@ -37,11 +39,12 @@ public class Hunter {
      *
      * @param modifier Amount to modify gold by.
      */
-    public void changeGold(int modifier) {
+    public Boolean changeGold(int modifier) {
         gold += modifier;
         if (gold < 0) {
-            gold = 0;
+            gameOver = true;
         }
+        return gameOver;
     }
 
     /**

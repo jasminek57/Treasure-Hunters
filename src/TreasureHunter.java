@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
+    private boolean gameOver;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -26,6 +27,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        gameOver = false;
     }
 
     /**
@@ -59,9 +61,6 @@ public class TreasureHunter {
             hunter = new Hunter(name, 10, false); // set hunter instance variable
         }
     }
-
-
-
 
     /**
      * Creates a new town and adds the Hunter to it.
@@ -117,6 +116,10 @@ public class TreasureHunter {
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
+            if (currentTown.getGameOver()) {
+                choice = "x";
+                System.out.println("You have lost the brawl and all your gold..." + "\n" + "Game Over!");
+            }
         }
     }
 

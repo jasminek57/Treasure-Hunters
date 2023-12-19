@@ -11,6 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean gameOver;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -21,6 +22,7 @@ public class Town {
     public Town(Shop shop, double toughness) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        gameOver = false;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -35,6 +37,11 @@ public class Town {
     public String getLatestNews() {
         return printMessage;
     }
+
+    /** returns the Boolean vaule gameOver */
+   public Boolean getGameOver(){
+        return gameOver;
+   }
 
     /**
      * Assigns an object to the Hunter in town.
@@ -108,7 +115,7 @@ public class Town {
             } else {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
-                hunter.changeGold(-goldDiff);
+                gameOver = hunter.changeGold(-goldDiff);
             }
         }
     }
@@ -148,4 +155,5 @@ public class Town {
         double rand = Math.random();
         return (rand < 0.5);
     }
+
 }
