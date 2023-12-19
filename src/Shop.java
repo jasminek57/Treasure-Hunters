@@ -14,6 +14,7 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int BOOT_COST = 8;
+    private static final int SHOVEL_COST = 8;
 
 
     // static variables
@@ -90,6 +91,7 @@ public class Shop {
         str += "Horse: " + HORSE_COST + " gold\n";
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOT_COST + " gold\n";
+        str += "Shovel: " + SHOVEL_COST + " gold\n";
 
         return str;
     }
@@ -154,8 +156,10 @@ public class Shop {
             return HORSE_COST;
         } else if (item.equals("boat")) {
             return BOAT_COST;
-        } else if (item.equals("boots")){
-            return BOOT_COST ;
+        } else if (item.equals("boots")) {
+            return BOOT_COST;
+        } else if (item.equals("shovel")) {
+            return SHOVEL_COST;
         } else {
             return 0;
         }

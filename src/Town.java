@@ -12,6 +12,7 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
     private boolean gameOver;
+    private boolean dugForGold;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -23,6 +24,7 @@ public class Town {
         this.shop = shop;
         this.terrain = getNewTerrain();
         gameOver = false;
+        dugForGold = false;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -118,6 +120,29 @@ public class Town {
                 printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
                 gameOver = hunter.changeGold(-goldDiff);
             }
+        }
+    }
+
+    /**
+     * Gives the hunter a chance to dig for some gold only if they have a shovel.<p>
+     * The chances of finding gold are exactly 50%.<p>
+     * The hunter can only dig for some gold once in a given town.
+     */
+    public void lookForGold() {
+        if ((hunter.getInventory().indexOf("shovel") > -1) && (dugForGold == false)){
+            int goldChance = (int)(Math.random() + 1);
+            if (goldChance == 1){
+                int gold = (int)(Math.random() * 20) + 1;
+                printMessage = "You dug up " + gold + " gold!";
+                hunter.changeGold(gold);
+                dugForGold = true;
+            } else {
+                printMessage = "You dug but only found dirt";
+            }
+        } else if (!hunter.getInventory().contains("shovel")){
+            printMessage = "You can't dig for gold without a shovel";
+        } else {
+            printMessage = "You already dug for gold in this town.";
         }
     }
 
