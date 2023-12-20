@@ -40,6 +40,10 @@ public class Hunter {
         return hunterName;
     }
 
+    public String[] getHunterTreasure() {
+        return treasure;
+    }
+
     /**
      * Updates the amount of gold the hunter has.
      *

@@ -115,6 +115,23 @@ public class TreasureHunter {
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
     }
+    public String treasureInfo() {
+        String[] t = hunter.getHunterTreasure();
+        String message = "";
+        if (t[0] == null) {
+            for (int i = 0; i < t.length; i++) {
+                if (!(t[i] == null)) {
+                    message += " " + t[i] + ",";
+                } else {
+                    message += "";
+                }
+
+            }
+        } else {
+            message = " none";
+        }
+        return message;
+    }
 
     /**
      * Displays the menu and receives the choice from the user.<p>
@@ -129,6 +146,7 @@ public class TreasureHunter {
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter);
+            System.out.println("Treasure:" + treasureInfo());
             System.out.println(currentTown);
             System.out.println(Colors.BLUE + "(B)uy something at the shop.");
             System.out.println("(S)ell something at the shop.");
