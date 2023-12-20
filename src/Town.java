@@ -101,8 +101,9 @@ public class Town {
      * The chances of finding a fight and winning the gold are based on the toughness of the town.<p>
      * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
      */
-    public void lookForTrouble() {
+    public void lookForTrouble(Boolean hasSword) {
         double noTroubleChance;
+        double chanceOfWinning;
         if (toughTown) {
             noTroubleChance = 0.66;
         } else {
@@ -114,7 +115,12 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
+            if (hasSword){
+                chanceOfWinning = 1000;
+            } else {
+                chanceOfWinning = Math.random();
+            }
+            if (chanceOfWinning > noTroubleChance) {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);

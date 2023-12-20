@@ -15,6 +15,7 @@ public class Shop {
     private static final int BOAT_COST = 20;
     private static final int BOOT_COST = 8;
     private static final int SHOVEL_COST = 8;
+    private static final int SWORD_COST = 0;
 
 
     // static variables
@@ -24,13 +25,19 @@ public class Shop {
     private double markdown;
     private Hunter customer;
 
+    private Boolean samuraiMode;
+
+    private Boolean hasSword;
+
     /**
      * The Shop constructor takes in a markdown value and leaves customer null until one enters the shop.
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown) {
+    public Shop(double markdown, Boolean samuariMode, Boolean hasSword) {
         this.markdown = markdown;
+        this.samuraiMode = samuariMode;
+        this.hasSword = hasSword;
         customer = null; // is set in the enter method
     }
 
@@ -50,7 +57,7 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We ain't got none of those.");
             } else {
                 System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
@@ -92,7 +99,9 @@ public class Shop {
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOT_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
-
+        if (samuraiMode){
+            str += "Sword: " + SWORD_COST + " gold\n";
+        }
         return str;
     }
 
@@ -103,7 +112,10 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
+        if (hasSword){
+            customer.buyItem(item, costOfItem, true) ;
+            System.out.println("Seeing the sword, the shopkeeper cowers in fear and scrambles to give the " + item + " for free");
+        } else if (customer.buyItem(item, costOfItem, false)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
@@ -160,8 +172,10 @@ public class Shop {
             return BOOT_COST;
         } else if (item.equals("shovel")) {
             return SHOVEL_COST;
+        } else if (item.equals("sword")) {
+            return SWORD_COST;
         } else {
-            return 0;
+            return -1;
         }
     }
 

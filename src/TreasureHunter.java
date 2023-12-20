@@ -20,6 +20,7 @@ public class TreasureHunter {
     private boolean hardMode;
     private boolean testMode;
     private boolean easyMode;
+    private boolean samuariMode;
     private boolean gameOver;
 
     /**
@@ -31,6 +32,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode = false;
+        samuariMode = false;
         gameOver = false;
         pastTown = 0;
         town  = 1;
@@ -67,6 +69,9 @@ public class TreasureHunter {
         } else if (mode.equals("e")) {
             easyMode = true;
             hunter = new Hunter(name, 20, false);
+        } else if (mode.equals("s")) {
+            samuariMode = true;
+            hunter = new Hunter(name, 10, false);
         } else {
             hunter = new Hunter(name, 10, false);
         }
@@ -84,19 +89,20 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
-        } else if (easyMode){
+        } else if (easyMode) {
             // in easy mode, you get the full amount back
             markdown = 1;
 
             // and the town is less tough = it is easier to win a brawl
             toughness = 0.2;
-
         }
 
-        // note that we don't need to access the Shop object
-        // outside of this method, so it isn't necessary to store it as an instance
-        // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop;
+        if (samuariMode) {
+            shop = new Shop(markdown, true, hunter.hasItemInKit("sword"));
+        } else {
+            shop = new Shop(markdown, false, false);
+        }
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
@@ -147,6 +153,7 @@ public class TreasureHunter {
      * @param choice The action to process.
      */
     private void processChoice(String choice) {
+        Boolean hasSword = hunter.hasItemInKit("sword");
         if (choice.equals("b") || choice.equals("s")) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
@@ -157,7 +164,7 @@ public class TreasureHunter {
             }
             town ++;
         } else if (choice.equals("l")) {
-            currentTown.lookForTrouble();
+            currentTown.lookForTrouble(hasSword);
         } else if (choice.equals("h")) {
             if (pastTown < town || pastTown > town) {
                 System.out.print(currentTown.lookForTreasure());
