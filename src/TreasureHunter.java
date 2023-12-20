@@ -14,6 +14,8 @@ public class TreasureHunter {
 
     // instance variables
     private Town currentTown;
+    private int pastTown;
+    private int town;
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
@@ -30,6 +32,8 @@ public class TreasureHunter {
         hardMode = false;
         easyMode = false;
         gameOver = false;
+        pastTown = 0;
+        town  = 1;
     }
 
     /**
@@ -125,6 +129,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(D)ig for gold!");
+            System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it." + Colors.RESET);
             System.out.println();
             System.out.print("What's your next move? ");
@@ -150,8 +155,16 @@ public class TreasureHunter {
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
+            town ++;
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+        } else if (choice.equals("h")) {
+            if (pastTown < town || pastTown > town) {
+                System.out.print(currentTown.lookForTreasure());
+                pastTown ++;
+            } else {
+                System.out.print("you have already searched this town\n");
+            }
         } else if (choice.equals("d")) {
             currentTown.lookForGold();
         } else if (choice.equals("x")) {

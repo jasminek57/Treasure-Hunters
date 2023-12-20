@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasure;
     private int gold;
     private boolean gameOver;
 
@@ -23,6 +24,11 @@ public class Hunter {
             kit = new String[] {"water", "rope", "machete", "horse", "boat"};
         } else {
             kit = new String[5]; // only 5 possible items can be stored in kit
+        }
+        if (mode){
+            treasure = new String[] {"crown", "trophy", "gem"};
+        } else {
+            treasure = new String[5]; // only 5 possible items can be stored in kit
         }
         gold = startingGold;
         gameOver = false;
@@ -113,6 +119,12 @@ public class Hunter {
 
         return false;
     }
+    public void implementItem(String item) {
+        if (!hasItemInTreasure(item)) {
+            int idx = emptyPositionInTreasure();
+            treasure[idx] = item;
+        }
+    }
 
     /**
      * Checks if the kit Array has the specified item.
@@ -122,6 +134,16 @@ public class Hunter {
      */
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public boolean hasItemInTreasure(String item) {
+        for (String tmpItem : treasure) {
             if (item.equals(tmpItem)) {
                 // early return
                 return true;
@@ -202,6 +224,15 @@ public class Hunter {
     private int emptyPositionInKit() {
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    private int emptyPositionInTreasure() {
+        for (int i = 0; i < treasure.length; i++) {
+            if (treasure[i] == null) {
                 return i;
             }
         }

@@ -40,6 +40,7 @@ public class Town {
         return printMessage;
     }
 
+
     /** returns the Boolean vaule gameOver */
    public Boolean getGameOver(){
         return gameOver;
@@ -146,6 +147,29 @@ public class Town {
             printMessage = "You can't dig for gold without a shovel";
         } else {
             printMessage = "You already dug for gold in this town.";
+        }
+    }
+
+    public String lookForTreasure() {
+        String item = "";
+
+        double rand = Math.random();
+        if (rand < .25) {
+            item = "crown";
+        } else if (rand < .5) {
+            item = "gem";
+        } else if (rand < .75) {
+            item = "trophy";
+        } else {
+            item = "dirt";
+        }
+        if (!item.equals("dirt") && !hunter.hasItemInTreasure(item)){
+            hunter.implementItem(item);
+            return "You have found a " + item + "!";
+        } else if(hunter.hasItemInTreasure(item)) {
+            return "you have already found a" + item + "!";
+        } else {
+            return "You have found " + item + "!";
         }
     }
 
