@@ -164,11 +164,14 @@ public class Town {
             item = "dirt";
         }
         if (!item.equals("dirt") && !hunter.hasItemInTreasure(item)){
+            printMessage = "";
             hunter.implementItem(item);
             return "You have found a " + item + "!";
         } else if(hunter.hasItemInTreasure(item)) {
+            printMessage = "";
             return "you have already found a" + item + "!";
         } else {
+            printMessage = "";
             return "You have found " + item + "!";
         }
     }
