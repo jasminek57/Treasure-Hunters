@@ -130,7 +130,7 @@ public class Town {
      */
     public void lookForGold() {
         if ((hunter.getInventory().indexOf("shovel") > -1) && (dugForGold == false)){
-            int goldChance = (int)(Math.random() + 1);
+            int goldChance = (int)(Math.random() * 2) + 1;
             if (goldChance == 1){
                 int gold = (int)(Math.random() * 20) + 1;
                 printMessage = "You dug up " + gold + " gold!";
@@ -138,6 +138,7 @@ public class Town {
                 dugForGold = true;
             } else {
                 printMessage = "You dug but only found dirt";
+                dugForGold = true;
             }
         } else if (!hunter.getInventory().contains("shovel")){
             printMessage = "You can't dig for gold without a shovel";
