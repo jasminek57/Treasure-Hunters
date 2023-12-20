@@ -66,14 +66,16 @@ public class Town {
      *
      * @return true if the Hunter was able to leave town.
      */
-    public boolean leaveTown() {
+    public boolean leaveTown(Boolean easyMode) {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
-            if (checkItemBreak()) {
-                hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your lost your " + item + ".";
+            if (!easyMode) {
+                if (checkItemBreak()) {
+                    hunter.removeItemFromKit(item);
+                    printMessage += "\nUnfortunately, your lost your " + item + ".";
+                }
             }
 
             return true;

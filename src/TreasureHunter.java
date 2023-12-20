@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
+    private boolean easyMode;
     private boolean gameOver;
 
     /**
@@ -27,6 +28,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
         gameOver = false;
     }
 
@@ -49,16 +51,20 @@ public class TreasureHunter {
         String name = SCANNER.nextLine().toLowerCase();
 
 
-        System.out.print("Hard mode? (y/n/test): ");
-        String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        System.out.print("Mode? Easy/Normal/Hard/Test (e/n/h/t): ");
+        String mode = SCANNER.nextLine().toLowerCase();
+
+        // three different modes which determine the difficulty of the game and one to just test the game
+        if (mode.equals("h")) {
             hardMode = true;
-        }
-        if (hard.equals("test")){
+        } else if (mode.equals("t")) {
             testMode = true;
             hunter = new Hunter(name, 100, true); // set hunter instance variable
+        } else if (mode.equals("e")) {
+            easyMode = true;
+            hunter = new Hunter(name, 20, false);
         } else {
-            hunter = new Hunter(name, 10, false); // set hunter instance variable
+            hunter = new Hunter(name, 10, false);
         }
     }
 
@@ -74,6 +80,13 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
+        } else if (easyMode){
+            // in easy mode, you get the full amount back
+            markdown = 1;
+
+            // and the town is less tough = it is easier to win a brawl
+            toughness = 0.2;
+
         }
 
         // note that we don't need to access the Shop object
@@ -132,7 +145,7 @@ public class TreasureHunter {
         if (choice.equals("b") || choice.equals("s")) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
+            if (currentTown.leaveTown(easyMode)) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
