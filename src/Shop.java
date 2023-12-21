@@ -114,6 +114,7 @@ public class Shop {
             customer.buyItem(item, costOfItem, true) ;
             System.out.println("Seeing the sword, the shopkeeper cowers in fear and scrambles to give the " + item + " for free");
         } else if (customer.buyItem(item, costOfItem, false)) {
+            customer.buyItem(item, costOfItem, false) ;
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
