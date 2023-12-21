@@ -183,7 +183,7 @@ public class Town {
             return "You have found a " + item + "!";
         } else if(hunter.hasItemInTreasure(item)) {
             printMessage = "";
-            return "you have already found a" + item + "!";
+            return "you have already found a " + item + "!";
         } else {
             printMessage = "";
             return "You have found " + item + "!";
