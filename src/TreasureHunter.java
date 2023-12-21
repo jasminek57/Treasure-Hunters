@@ -118,10 +118,14 @@ public class TreasureHunter {
     public String treasureInfo() {
         String[] t = hunter.getHunterTreasure();
         String message = "";
-        if (t[0] == null) {
+        if (!(t[0] == null)) {
             for (int i = 0; i < t.length; i++) {
                 if (!(t[i] == null)) {
-                    message += " " + t[i] + ",";
+                    if (i == 0) {
+                        message += " " + t[i];
+                    } else {
+                        message += ", " + t[i];
+                    }
                 } else {
                     message += "";
                 }
