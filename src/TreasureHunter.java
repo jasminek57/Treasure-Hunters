@@ -145,7 +145,10 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x")) {
+        while (!choice.equals("x") || !gameOver) {
+            if(gameOver){
+                break;
+            }
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -191,6 +194,12 @@ public class TreasureHunter {
             if (pastTown < town || pastTown > town) {
                 System.out.print(currentTown.lookForTreasure());
                 pastTown ++;
+                String[] list = hunter.getHunterTreasure();
+
+                if(!(list[0] == null) && !(list[1] == null) && !(list[2] == null)) {
+                    gameOver = true;
+                    System.out.println("\nCongratulations, you have found the last of the three treasures, you win!");
+                }
             } else {
                 System.out.print("you have already searched this town\n");
             }
