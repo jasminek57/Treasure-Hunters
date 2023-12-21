@@ -65,7 +65,7 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem, Boolean hasSword) {
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
+        if (costOfItem == -1 || gold < costOfItem || hasItemInKit(item)) {
             return false;
         }
 

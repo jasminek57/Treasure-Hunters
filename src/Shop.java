@@ -27,17 +27,15 @@ public class Shop {
 
     private Boolean samuraiMode;
 
-    private Boolean hasSword;
 
     /**
      * The Shop constructor takes in a markdown value and leaves customer null until one enters the shop.
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown, Boolean samuariMode, Boolean hasSword) {
+    public Shop(double markdown, Boolean samuariMode) {
         this.markdown = markdown;
         this.samuraiMode = samuariMode;
-        this.hasSword = hasSword;
         customer = null; // is set in the enter method
     }
 
@@ -47,7 +45,7 @@ public class Shop {
      * @param hunter the Hunter entering the shop
      * @param buyOrSell String that determines if hunter is "B"uying or "S"elling
      */
-    public void enter(Hunter hunter, String buyOrSell) {
+    public void enter(Hunter hunter, String buyOrSell, Boolean hasSword) {
         customer = hunter;
 
         if (buyOrSell.equals("b")) {
@@ -64,7 +62,7 @@ public class Shop {
                 String option = SCANNER.nextLine().toLowerCase();
 
                 if (option.equals("y")) {
-                    buyItem(item);
+                    buyItem(item, hasSword);
                 }
             }
         } else {
@@ -110,7 +108,7 @@ public class Shop {
      *
      * @param item The item being bought.
      */
-    public void buyItem(String item) {
+    public void buyItem(String item, Boolean hasSword) {
         int costOfItem = checkMarketPrice(item, true);
         if (hasSword){
             customer.buyItem(item, costOfItem, true) ;

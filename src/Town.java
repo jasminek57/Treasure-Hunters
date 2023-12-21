@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * The Town Class is where it all happens.
  * The Town is designed to manage all the things a Hunter can do in town.
@@ -92,7 +94,7 @@ public class Town {
      * @param choice If the user wants to buy or sell items at the shop.
      */
     public void enterShop(String choice) {
-        shop.enter(hunter, choice);
+        shop.enter(hunter, choice, hunter.hasItemInKit("sword"));
         printMessage = "You have left the shop";
     }
 
@@ -115,14 +117,20 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
+
             if (hasSword){
                 chanceOfWinning = 1000;
             } else {
                 chanceOfWinning = Math.random();
             }
+
             if (chanceOfWinning > noTroubleChance) {
+                if (hasSword) {
+                    printMessage += Colors.RED + "The brawler, seeing your sword realizes he picked a losing fight and give you all his gold. (" + goldDiff + " gold)";
+                } else {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                }
                 hunter.changeGold(goldDiff);
             } else {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";

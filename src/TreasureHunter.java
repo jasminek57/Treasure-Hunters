@@ -99,9 +99,9 @@ public class TreasureHunter {
 
         Shop shop;
         if (samuariMode) {
-            shop = new Shop(markdown, true, hunter.hasItemInKit("sword"));
+            shop = new Shop(markdown, true);
         } else {
-            shop = new Shop(markdown, false, false);
+            shop = new Shop(markdown, false);
         }
 
         // creating the new Town -- which we need to store as an instance
